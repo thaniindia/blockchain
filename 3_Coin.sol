@@ -29,6 +29,6 @@ contract Coin {
         require(amount <= balances[msg.sender], "Insufficient balance.");
         balances[msg.sender] -= amount;
         balances[receiver] += amount;
-        emit Sent(msg.sender, receiver, amount);
+        emit Sent(msg.sender, receiver, amount);  //Triggering the event
     }
 }
