@@ -9,6 +9,7 @@ contract DNCRegistry{
     function addMobileNo(uint mobileno) public { 
         if (!contains(mobileno))    //Check if mobile number already exist in the DNC Register list
             DNCDatabase.push(mobileno);
+           
     }
     
     //get all mobile numbers list
@@ -29,5 +30,29 @@ contract DNCRegistry{
                 return true;
         }
         return false;
+    }
+    
+    //find mobile number index value from the DNC Register
+    function findIndex(uint value) public view returns(uint) {
+        uint i = 0;
+        while (DNCDatabase[i] != value) {
+            i++;
+        }
+        return i;
+    }
+    
+    //Remove mobile number from DNC Register by mobile no.
+    function removeByValue(uint value) public {
+        uint i = findIndex(value);
+        removeByIndex(i);
+    }
+    
+    //Remove mobile number from DNC Register by array index value.
+    function removeByIndex(uint i) public {
+        while (i<DNCDatabase.length-1) {
+            DNCDatabase[i] = DNCDatabase[i+1];
+            i++;
+        }
+        DNCDatabase.length--;
     }
 }
