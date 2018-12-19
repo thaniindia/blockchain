@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>Smart contract</title>
+    <script type="text/javascript" src="C:/dapp/node_modules/web3/dist/web3.js"></script>
+</head>
+
+<body>
+    <div>
+		<input id="input1" type="number" name="number1" placeholder="Enter Number1"/>
+		<input id="input2" type="number" name="number2" placeholder="Enter Number2"/>
+
+        <button id="buttonAdd">Add</div></button>
+        <pre id="output"></pre>
+    </div>
+	
+	<script type="text/javascript">
+        var web3;
+
+        if(typeof web !="undefined"){
+            web3 = new Web3(web3.currentProvider);
+        }else{
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+
+    	var new_contract = web3.eth.contract([
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "addNumbers",
+		"outputs": [
+			{
+				"name": "number",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "a",
+				"type": "uint256"
+			},
+			{
+				"name": "b",
+				"type": "uint256"
+			}
+		],
+		"name": "getNumbers",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]);
+
+    var contract = new_contract.at("0xbd1629e8df06fb98aded4224da926fd028f24c69");
+
+    var pre = document.getElementById("output");
+    var input = document.getElementById("input1");
+	var input = document.getElementById("input2");
+    var button = document.getElementById("button");
+
+    buttonAdd.addEventListener("click",function() {
+        contract.getNumbers(input1.value,input2.value);
+		output.innerHTML = contract.addNumbers();
+    })
+    
+
+	</script>
+	
+</body>
+</html>
