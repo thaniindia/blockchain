@@ -60,11 +60,6 @@
 
     var contract = new_contract.at("0xbd1629e8df06fb98aded4224da926fd028f24c69");
 
-    var pre = document.getElementById("output");
-    var input = document.getElementById("input1");
-	var input = document.getElementById("input2");
-    var button = document.getElementById("button");
-
     buttonAdd.addEventListener("click",function() {
         contract.getNumbers(input1.value,input2.value);
 		output.innerHTML = contract.addNumbers();
